@@ -1,0 +1,27 @@
+import math
+class Solution:
+    def minimizeSet(self, d1: int, d2: int, u1: int, u2: int) -> int:
+        l=1
+        h=1e12
+        lcm = math.lcm(d1,d2)
+        while(h>l+1):
+            mid=(l+h)//2
+            if(Solution.check(self,mid,d1,d2,lcm,u1,u2)):
+                    h = mid
+            else:
+                    l = mid
+        return int(h)
+                    
+    def check(self,x,d1,d2,lcm,u1,u2):
+        A = x//d1 
+        A_ = x - A
+        B = x//d2
+        B_ = x - B
+        AIB = x//lcm
+        AUB = A + B - AIB
+        A_UB_ = x - AUB
+        
+        needA = 0 if(A_ - A_UB_ >=u1) else u1 - (A_ - A_UB_)
+        needB = 0 if (B_ - A_UB_ >= u2) else u2 - (B_ - A_UB_)
+        return (A_UB_ >=needA+needB)
+        
