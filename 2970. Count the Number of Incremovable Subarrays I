@@ -1,0 +1,38 @@
+class Solution {
+     public static int incremovableSubarrayCount(int[] a) {
+        int n = a.length;
+        int i = 0;
+        for (; i < n - 1; i++) {
+            if (a[i + 1] <= a[i]) {
+                break;
+            }
+        }
+
+        int j = n - 1;
+        for (; j > 0; j--) {
+            if (a[j - 1] >= a[j]) {
+                break;
+            }
+        }
+
+        int ans = 0;
+        while (i >= 0) {
+            int u = Arrays.binarySearch(Arrays.copyOfRange(a, j, n), a[i]);
+            if (u < 0) {
+                u = -u - 1 + j;
+            } else {
+                while (u < n && a[u] == a[i]) {
+                    u++;
+                }
+            }
+            ans += n - u + 1;
+            i--;
+        }
+
+        if (ans < (n * (n + 1)) / 2) {
+            ans += n - j + 1;
+        }
+
+        return ans;
+    }
+}
