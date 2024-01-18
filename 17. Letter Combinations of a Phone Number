@@ -1,0 +1,21 @@
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        int length = digits.length();
+        List<String> ans = new ArrayList<>();
+        if(length == 0) return ans;
+        String[] phone_map = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        backtrack("",digits,phone_map,ans);
+        return ans;
+    }
+    public void backtrack(String combination,String digits,String[] phone_map,List<String> ans){
+        if(digits.isEmpty()) {
+            ans.add(combination);
+            return;
+        }
+       int digit = digits.charAt(0)-'2';
+        for(char letter: phone_map[digit].toCharArray()){
+            backtrack(combination+letter,digits.substring(1),phone_map,ans);
+        }
+        
+    }
+}
