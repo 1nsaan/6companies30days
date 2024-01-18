@@ -1,0 +1,24 @@
+class Solution:
+    def imageSmoother(self, img: List[List[int]]) -> List[List[int]]:
+        res=[]
+        l=len
+        r=l(img)
+        c=l(img[0])
+        for i in range(r):
+            row =[]
+            for j in range(c):
+                avg=Solution.findavg(img,i,j,r,c)
+                row.append(avg)
+            res.append(row)
+        return res
+    def findavg(img,r,c,rb,cb):
+        add=0
+        n=0
+        for i in range(r-1,r+2):
+            if i>=0 and i<rb:
+                for j in range(c-1,c+2):
+                    if j>=0 and j < cb:
+                         add+=img[i][j]
+                         n+=1
+        return add//n
+        
