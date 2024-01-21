@@ -1,0 +1,32 @@
+class Solution {
+    
+    public int countDistinct(int[] nums, int k, int p) {
+        boolean is_divisible[] = new boolean[nums.length];
+        Set<List<Integer>> hash = new HashSet<>();
+        
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]%p==0) is_divisible[i] = true;
+        }
+       List<Integer> subarray = new ArrayList<>();
+       int count = 0;
+       for(int i=0;i<nums.length;i++){
+           count=0;
+           subarray.clear();
+           for(int size=i;size<nums.length;size++){
+                   subarray.add(nums[size]);
+                   if(is_divisible[size]) {
+                      count++;
+                   }
+                    if(count>k) break;
+                     
+                     hash.add(new ArrayList<>(subarray));
+           }
+           System.out.println();
+          
+       }
+       return hash.size();
+    }
+    
+}
+
+
